@@ -66,6 +66,7 @@ class LacriAI(commands.Bot):
 
     async def setup_hook(self):
         await self.sync_application_commands()
+        await self.sync_all_application_commands()
 
     async def get_weather(self, city: str):
         """Get weather data from OpenWeatherMap API."""
