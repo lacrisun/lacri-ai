@@ -5,6 +5,10 @@ from utils.weather_api import get_weather
 class WeatherCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    def cog_unload(self):
+        self.conversations.clear()
+        self.bot_messages.clear()
         
     @nextcord.slash_command(name='weather', description="Check weather for a city")
     async def weather_slash(self, interaction: nextcord.Interaction, city: str):

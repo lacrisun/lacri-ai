@@ -41,6 +41,10 @@ class ProgramCog(commands.Cog, name="Programming"):
         - provide detailed comments and documentation
         - think step by step through problems"""
 
+    def cog_unload(self):
+        self.conversations.clear()
+        self.bot_messages.clear()
+
     async def get_sambanova_response(self, user_message: str, user_id: int):
         try:
             context = self.get_conversation_context(user_id)

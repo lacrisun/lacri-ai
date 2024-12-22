@@ -5,6 +5,10 @@ class UtilityCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    def cog_unload(self):
+        self.conversations.clear()
+        self.bot_messages.clear()
+
     @nextcord.slash_command(name='ping', description="Check bot latency")
     async def ping_slash(self, interaction: nextcord.Interaction):
         await interaction.response.send_message(

@@ -108,29 +108,6 @@ class ChatCog(commands.Cog):
             print(f"Error getting AI response: {str(e)}")
             return "something went wrong... let me collect my thoughts and try again."
 
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author == self.bot.user:
-            return
-
-        if message.reference and message.reference.message_id:
-            try:
-                replied_to = await message.channel.fetch_message(message.reference.message_id)
-                
-                if replied_to.author == self.bot.user:
-                    async with message.channel.typing():
-                        response = await self.get_ai_response(message.content, message.author.id)
-                        
-                        bot_response = await message.reply(response)
-                        self.bot_messages[bot_response.id] = {
-                            'user_id': message.author.id,
-                            'timestamp': datetime.now()
-                        }
-            except nextcord.NotFound:
-                pass
-            except Exception as e:
-                print(f"Error handling reply: {str(e)}")
-
     @nextcord.slash_command(name='chat', description="Chat with lacri.ai in any language")
     async def chat_slash(self, interaction: nextcord.Interaction, message: str):
         await interaction.response.defer()
